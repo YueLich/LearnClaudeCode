@@ -69,3 +69,27 @@ Tool request
   -> 最终 allow 或 deny
   -> allow 执行工具；deny 记录并拒绝
 ```
+
+### ASCII 版权限决策图
+
+```text
+[Tool request]
+      |
+      v
+[permission context]
+      |
+      v
+[allow/deny/ask matching]
+      |
+      v
+[auto mode?]--yes-->[danger rule check]--+
+      |                                   |
+      no                                  v
+      +--------->[normal policy check]-->[policy gate]
+                                           |
+                                           v
+                                   [final allow/deny]
+                                      |         |
+                                      v         v
+                                 [execute]   [reject+record]
+```

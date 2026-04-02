@@ -61,3 +61,25 @@ Process Start
   -> 并行预取（mdm/keychain）
   -> 解析参数并分发子系统
 ```
+
+### ASCII 版启动分层图
+
+```text
+[Process Start]
+      |
+      v
+[cli.tsx fast-path?]--yes-->[quick return]
+      |
+      no
+      v
+[load profiler/config/sinks]
+      |
+      v
+[enter main.tsx]
+      |
+      v
+[prefetch mdm/keychain]
+      |
+      v
+[parse args & dispatch subsystem]
+```

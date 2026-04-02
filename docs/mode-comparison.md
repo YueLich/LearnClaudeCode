@@ -67,3 +67,16 @@ flowchart TB
   -> 本地执行（本地资源直连）
   -> 远程/桥接执行（网络与策略边界）
 ```
+
+### ASCII 版模式总览图
+
+```text
+[Unified Core: QueryEngine + Query Loop + Tool Runtime]
+      |
+      +--> [Interactive REPL]
+      +--> [Headless Non-Interactive]
+      +--> [SDK Embedded]
+      +--> [CLI Entrypoint]
+      +--> [Local Execution]
+      +--> [Remote/Bridge Execution]
+```

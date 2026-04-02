@@ -37,10 +37,10 @@ flowchart LR
 3. `markToolUseAsComplete` 与 in-progress 集合管理。
 4. contextModifier 应用顺序为何必须稳定。
 
-## 6. 建议补充实验
+## 6. 实验剧本（已补充）
 
-- 将并发上限从 10 调到 1/20，观察耗时与日志差异。
-- 模拟一个“并发安全误判”为 true 的工具，验证状态污染风险。
+- 并发调度验证实验已整理到：`docs/experiments/02-tool-concurrency-experiments.md`。
+- 覆盖并发上限对耗时与一致性的对比方法，以及结论模板。
 
 ## 7. 真实代码调用路径（函数级追踪）
 
@@ -66,4 +66,22 @@ tool_use blocks
      - false -> runToolsSerially
   -> 合并 contextModifier
   -> 返回 message + newContext
+```
+
+### ASCII 版调度图
+
+```text
+[tool_use blocks]
+        |
+        v
+[partitionToolCalls]
+        |
+        v
+[isConcurrencySafe?]--yes-->[runToolsConcurrently]--+
+        |                                            |
+        no                                           v
+        +--------------->[runToolsSerially]---->[merge contextModifier]
+                                                     |
+                                                     v
+                                          [message + newContext]
 ```

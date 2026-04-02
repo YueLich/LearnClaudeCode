@@ -108,6 +108,9 @@ sequenceDiagram
 - `docs/deep-dives/03-permission-system.md`
 - `docs/deep-dives/04-startup-boot.md`
 - `docs/deep-dives/05-extensibility-ecosystem.md`
+- `docs/deep-dives/06-state-and-storage.md`
+- `docs/deep-dives/07-observability-and-telemetry.md`
+- `docs/deep-dives/08-failure-recovery-patterns.md`
 
 ---
 
@@ -155,4 +158,24 @@ ClaudeCode Runtime -> Telemetry/Session Storage
 7) 允许后执行工具，产出 tool_result
 8) tool_result 回注 QueryLoop，继续迭代
 9) 终止后返回 assistant 输出与状态更新
+```
+
+### D. ASCII 版（推荐在无 Mermaid 环境阅读）
+
+```text
+[User]
+   |
+   v
+[CLI Entrypoint]
+   |
+   v
+[ClaudeCode Runtime]----------------------->[Telemetry/Session Storage]
+   |    |         |         |       |
+   |    |         |         |       +-->[Plugins/Skills]
+   |    |         |         +---------->[Shell/Subprocess]
+   |    |         +-------------------->[Local File System]
+   |    +------------------------------>[MCP Servers]
+   +----------------------------------->[LLM API]
+
+[Org Policy & Settings] ------------------> [ClaudeCode Runtime]
 ```
