@@ -10,6 +10,7 @@
 - 系统边界与职责逻辑视图：[`docs/logical-view-system-boundary.md`](docs/logical-view-system-boundary.md)
 - 术语表：[`docs/glossary.md`](docs/glossary.md)
 - 执行模式对比：[`docs/mode-comparison.md`](docs/mode-comparison.md)
+- 快速学习路径：[`docs/quick-start-learning-path.md`](docs/quick-start-learning-path.md)
 
 ## 深挖专题（按推荐阅读顺序）
 
