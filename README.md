@@ -26,3 +26,19 @@
 
 - 并发调度实验剧本：[`docs/experiments/02-tool-concurrency-experiments.md`](docs/experiments/02-tool-concurrency-experiments.md)
 - 深挖专题模板：[`docs/templates/deep-dive-template.md`](docs/templates/deep-dive-template.md)
+
+
+## 提交前同步建议（避免冲突）
+
+```bash
+# 1) 同步主线（按你的远程配置替换）
+git fetch origin
+git rebase origin/main
+
+# 2) 处理冲突后继续
+git add <resolved-files>
+git rebase --continue
+
+# 3) 再提交增量修改
+git commit -m "docs: incremental update"
+```
