@@ -6,14 +6,36 @@
 
 1. 阅读总览：`docs/claudecode-system-design.md`
 2. 阅读系统边界：`docs/logical-view-system-boundary.md`
-3. 打开 `main.tsx`，只看：
-   - 顶部启动预取与 profile checkpoint
-   - CLI/初始化相关 import
-   - 与 REPL、Query、tools、state 的连接点
-4. 打开 `QueryEngine.ts` 和 `query.ts`，确认主循环“消息 -> 工具 -> 回注 -> 继续推理”。
+3. 打开 `main.tsx`，优先看这些**可检索锚点**（建议直接 `rg -n`）：
+   - 启动预取与启动性能埋点：
+     - `profileCheckpoint('main_tsx_entry')`
+     - `startMdmRawRead()`
+     - `startKeychainPrefetch()`
+   - 初始化主链路：
+     - `await init()`
+     - `initializeToolPermissionContext(...)`
+     - `getTools(toolPermissionContext)`
+   - 进入交互循环（REPL）：
+     - `showSetupScreens(...)`
+     - `launchRepl(root, {...})`
+   - 状态更新入口：
+     - `createStore(headlessInitialState, onChangeAppState)`
+4. 打开 `QueryEngine.ts` 和 `query.ts`，按以下函数名确认主循环“消息 -> 工具 -> 回注 -> 继续推理”：
+   - `QueryEngine.submitMessage(...)`
+   - `query(...)` / `queryLoop(...)`
+   - `runTools(...)`（在 `services/tools/toolOrchestration.ts`）
 
 完成标准（自测）
 - 你能用 5 句话解释：ClaudeCode 从用户输入到最终输出的主链路。
+
+### 1.1 快速定位命令（可直接复制）
+
+```bash
+rg -n "profileCheckpoint\('main_tsx_entry'\)|startMdmRawRead\(|startKeychainPrefetch\(" main.tsx
+rg -n "await init\(|initializeToolPermissionContext\(|getTools\(" main.tsx
+rg -n "showSetupScreens\(|launchRepl\(|createStore\(headlessInitialState" main.tsx
+rg -n "submitMessage\(|queryLoop\(|runTools\(" QueryEngine.ts query.ts services/tools/toolOrchestration.ts
+```
 
 ## 2. 2 小时进阶（抓住可改动的关键面）
 

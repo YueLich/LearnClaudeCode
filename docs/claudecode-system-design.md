@@ -51,13 +51,18 @@ ClaudeCode 不是“对话式脚本”，而是一个 **Agent Runtime**：
 
 ```text
 main.tsx
-  -> screens/REPL.tsx
-  -> QueryEngine.ts
-  -> query.ts
-  -> services/tools/toolOrchestration.ts
+  -> init() / initializeToolPermissionContext() / getTools()
+  -> showSetupScreens() / launchRepl()
+  -> QueryEngine.submitMessage()
+  -> query() / queryLoop()
+  -> services/tools/toolOrchestration.ts::runTools()
   -> tools/* (Bash/MCP/Edit/...)
   -> state/* + utils/sessionStorage.ts
 ```
+
+**快速定位建议（避免盲读）**
+- 在 `main.tsx` 先检索：`await init(`、`initializeToolPermissionContext(`、`getTools(`、`launchRepl(`。
+- 在核心循环检索：`QueryEngine.ts::submitMessage`、`query.ts::queryLoop`、`toolOrchestration.ts::runTools`。
 
 **为什么先看这条主干**
 - 它覆盖了“启动、渲染、调度、执行、落盘”的最短闭环。
